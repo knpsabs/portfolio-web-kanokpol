@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>กนกพล แสนเมืองมา — Portfolio</title>
+  <meta name="description" content="Portfolio ของนายกนกพล แสนเมืองมา — Content Creator & Data Analysis" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Animated background -->
+  <div class="bg-layer" aria-hidden="true">
+    <div class="bg-orb bg-orb--1"></div>
+    <div class="bg-orb bg-orb--2"></div>
+    <div class="bg-orb bg-orb--3"></div>
+    <div class="bg-noise"></div>
+  </div>
+
+  <!-- Scroll progress bar -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- Scroll indicator (เห็นตลอดการ scroll) -->
+  <div class="scroll-indicator" aria-hidden="true">
+    <div class="scroll-indicator__mouse"><div></div></div>
+    <span class="scroll-indicator__text">SCROLL</span>
+  </div>
+
+  <nav class="chapter-nav" aria-label="Chapter navigation">
+    <button class="chapter-nav__button" id="previousChapter" aria-label="Previous chapter">
+      <span class="chapter-nav__arrow" aria-hidden="true">↑</span>
+      <span class="chapter-nav__label">PREV</span>
+    </button>
+    <button class="chapter-nav__button" id="nextChapter" aria-label="Next chapter">
+      <span class="chapter-nav__arrow" aria-hidden="true">↓</span>
+      <span class="chapter-nav__label">NEXT</span>
+    </button>
+  </nav>
+
+  <!-- ============ NAVIGATION (sidebar เต็ม) ============ -->
+  <nav id="sideNav" class="side-nav">
+    <div class="side-nav__brand">
+      <div class="side-nav__brand-avatar"><img id="navAvatar" alt="MHOK" /></div>
+      <div class="side-nav__brand-text">
+        <span class="side-nav__brand-name">MHOK</span>
+        <span class="side-nav__brand-fullname">Kanokpol Saenmueangma</span>
+        <span class="side-nav__brand-role">Data Analysis | Marketing</span>
+      </div>
+    </div>
+    <ul id="navList"></ul>
+    <div class="side-nav__footer">© 2025 MHOK</div>
+  </nav>
+
+  <!-- ============ MOBILE TOP NAV ============ -->
+  <nav class="mobile-nav">
+    <div class="mobile-nav__bar">
+      <span class="logo">KN<span class="logo-dot">.</span></span>
+      <span id="mobileActiveLabel" class="mobile-nav__active"></span>
+      <button id="hamburgerBtn" class="hamburger" aria-label="เปิดเมนู">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div id="mobileMenu" class="mobile-menu"></div>
+  </nav>
+
+  <!-- ============ HERO SECTION ============ -->
+  <header id="hero" class="hero">
+    <div class="hero__bg-decoration"></div>
+    <div class="hero__bg-decoration hero__bg-decoration--2"></div>
+      <div class="hero__content">
+      <!-- Floating background profile photos -->
+      <div class="hero__floating-photos" aria-hidden="true">
+        <img class="hero__floating-photo hero__floating-photo--1" src="public/images/profile/mhok1.png" alt="" loading="eager" />
+        <img class="hero__floating-photo hero__floating-photo--2" src="public/images/profile/mhok2.png" alt="" loading="eager" />
+      </div>
+      <p class="hero__tag"><span id="heroTagText"></span><span class="hero__tag-cursor">_</span></p>
+      <h1 class="hero__name">
+        <span class="hero__nickname-highlight">MHOK</span>
+        <span class="hero__nickname-th">หมอก</span>
+      </h1>
+      <p class="hero__fullname">
+        <span class="hero__fullname-en">Kanokpol Saenmueangma</span>
+        <span class="hero__fullname-th">กนกพล แสนเมืองมา</span>
+      </p>
+      <p class="hero__subtitle">
+        <strong>Data Analysis</strong> <span class="hero__sep">|</span> <strong>Marketing</strong><br />
+        <span class="hero__school">มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี — คณะวิทยาศาสตร์ สาขาคณิตศาสตร์</span>
+      </p>
+      <div class="hero__cta">
+        <a href="#dream-runner-x" class="btn btn--primary">ดูผลงาน</a>
+        <a href="#contact" class="btn btn--outline">ติดต่อ</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ WORKS SECTIONS (rendered by JS) ============ -->
+  <main id="worksContainer">
+    <!-- ============ ABOUT ME SECTION ============ -->
+    <section id="about" class="about-section gs-fade">
+      <div class="work-section__header">
+        <span class="work-section__num">00</span>
+        <span class="work-section__icon" id="aboutIcon"></span>
+        <h2 class="work-section__title">
+          <span class="work-section__title-th">เกี่ยวกับผม</span>
+          <span class="work-section__title-en">About Me</span>
+        </h2>
+        <div class="work-section__divider"></div>
+        <p class="work-section__subtitle">
+          <span class="work-section__subtitle-th">ข้อมูลส่วนตัว ประวัติการศึกษา และทักษะต่างๆ</span>
+          <span class="work-section__subtitle-en">Personal profile, education, and skills.</span>
+        </p>
+      </div>
+
+      <div class="about-grid">
+        <!-- Intro / Bio -->
+        <div class="about-card about-card--bio">
+          <div class="about-card__head">
+            <span class="about-card__icon" id="aboutUserIcon"></span>
+            <h3 class="about-card__title">
+              <span class="about-card__title-th">เกี่ยวกับผม</span>
+              <span class="about-card__title-en">About Me</span>
+            </h3>
+          </div>
+          <div class="about-card__bio-wrap">
+            <p class="about-card__bio">
+              <span class="about-card__bio-th">ผมเป็นคนเรียบร้อย สุภาพ และเข้ากับคนอื่นได้ง่ายครับ ชอบคิดพิจารณาให้รอบคอบก่อนตัดสินใจ และทำงานอย่างเป็นระบบ สามารถปรับตัวเข้ากับสถานการณ์ต่าง ๆ ได้ พร้อมรับมือกับปัญหาเสมอ แม้จะชอบทำงานคนเดียว แต่ผมก็ทำงานเป็นทีมได้ดีและพร้อมช่วยเหลือผู้อื่นเมื่อจำเป็นครับ</span>
+              <span class="about-card__bio-en">I am a calm and polite person who gets along well with others. I think carefully before making decisions and work in an organized way. I adapt easily to different situations and am always ready to handle problems. Although I enjoy working independently, I also collaborate well in teams and help others when needed.</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Personal Profile -->
+        <div class="about-card">
+          <div class="about-card__head">
+            <span class="about-card__icon" id="aboutIdIcon"></span>
+            <h3 class="about-card__title">
+              <span class="about-card__title-th">ข้อมูลส่วนตัว</span>
+              <span class="about-card__title-en">Personal Profile</span>
+            </h3>
+          </div>
+          <dl class="info-list">
+            <div class="info-list__row"><dt>สัญชาติ</dt><dd>ไทย <span class="info-list__en">(Thai)</span></dd></div>
+            <div class="info-list__row"><dt>ส่วนสูง</dt><dd>171 ซม. <span class="info-list__en">(171 cm)</span></dd></div>
+            <div class="info-list__row"><dt>น้ำหนัก</dt><dd>60 กก. <span class="info-list__en">(60 kg)</span></dd></div>
+            <div class="info-list__row"><dt>วันเกิด</dt><dd>26 ส.ค. 2004 <span class="info-list__en">(Aug 26, 2004)</span></dd></div>
+            <div class="info-list__row"><dt>อายุ</dt><dd>21 ปี <span class="info-list__en">(21 years)</span></dd></div>
+          </dl>
+        </div>
+
+        <!-- Education -->
+        <div class="about-card">
+          <div class="about-card__head">
+            <span class="about-card__icon" id="aboutGradIcon"></span>
+            <h3 class="about-card__title">
+              <span class="about-card__title-th">ประวัติการศึกษา</span>
+              <span class="about-card__title-en">Education</span>
+            </h3>
+          </div>
+          <div class="timeline">
+            <div class="timeline__item">
+              <div class="timeline__period">2023 – ปัจจุบัน (Current)</div>
+              <div class="timeline__title">มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี</div>
+              <div class="timeline__desc-en">King Mongkut's University of Technology Thonburi</div>
+              <div class="timeline__desc">สาขาคณิตศาสตร์ / Department of Mathematics <span class="timeline__gpa">(GPA: 2.89 / 4.00)</span></div>
+            </div>
+            <div class="timeline__item">
+              <div class="timeline__period">2020 – 2023</div>
+              <div class="timeline__title">โรงเรียนสารสาสน์สุขสวัสดิ์</div>
+              <div class="timeline__desc-en">Sarasas Suksawad School</div>
+              <div class="timeline__desc">ห้องเรียนวิทยาศาสตร์ – คณิตศาสตร์ / Science – Mathematics Program</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skills -->
+        <div class="about-card about-card--skills">
+          <div class="about-card__head">
+            <span class="about-card__icon" id="aboutSkillsIcon"></span>
+            <h3 class="about-card__title">
+              <span class="about-card__title-th">ทักษะ</span>
+              <span class="about-card__title-en">Skills</span>
+            </h3>
+          </div>
+          <div class="skills-grid">
+            <div class="skill-group">
+              <h4 class="skill-group__title">Programming</h4>
+              <div class="skill-tags">
+                <span class="tag">Python</span><span class="tag">HTML</span><span class="tag">CSS</span>
+              </div>
+            </div>
+            <div class="skill-group">
+              <h4 class="skill-group__title">Data &amp; Analytics</h4>
+              <div class="skill-tags">
+                <span class="tag">Excel (Pivot, Chart, Formula)</span>
+                <span class="tag">Google Sheets</span>
+                <span class="tag">Pandas</span>
+                <span class="tag">NumPy</span>
+                <span class="tag">Matplotlib</span>
+                <span class="tag">ChatGPT</span>
+                <span class="tag">Gemini Pro</span>
+              </div>
+            </div>
+            <div class="skill-group">
+              <h4 class="skill-group__title">Computer</h4>
+              <div class="skill-tags">
+                <span class="tag">Word</span><span class="tag">Excel</span><span class="tag">PowerPoint</span>
+                <span class="tag">Canva</span><span class="tag">Photoshop</span><span class="tag">CapCut</span>
+              </div>
+            </div>
+            <div class="skill-group">
+              <h4 class="skill-group__title">Hardware</h4>
+              <div class="skill-tags">
+                <span class="tag">PC Building</span><span class="tag">Hardware Troubleshooting</span>
+              </div>
+            </div>
+            <div class="skill-group">
+              <h4 class="skill-group__title">Language</h4>
+              <div class="skill-tags">
+                <span class="tag">Intermediate English Communication</span>
+              </div>
+            </div>
+            <div class="skill-group">
+              <h4 class="skill-group__title">Soft Skills</h4>
+              <div class="skill-tags">
+                <span class="tag">Problem-Solving</span>
+                <span class="tag">Communication Skills</span>
+                <span class="tag">Teamwork</span>
+                <span class="tag">Self-Learning</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- University Courses -->
+        <div class="about-card">
+          <div class="about-card__head">
+            <span class="about-card__icon" id="aboutBookIcon"></span>
+            <h3 class="about-card__title">
+              <span class="about-card__title-th">วิชาในมหาวิทยาลัย</span>
+              <span class="about-card__title-en">University Courses</span>
+            </h3>
+          </div>
+          <div class="skill-tags">
+            <span class="tag">Data Science</span>
+            <span class="tag">Data Analysis</span>
+            <span class="tag">Regression Analysis</span>
+            <span class="tag">Linear Algebra</span>
+            <span class="tag">Statistics</span>
+            <span class="tag">Programming Skills</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ CONTACT SECTION ============ -->
+  <section id="contact" class="contact">
+    <div class="contact__overlay"></div>
+    <div class="contact__inner">
+      <h2 class="contact__title">
+        <span class="contact__title-th">ข้อมูล<span class="accent-text">ติดต่อ</span></span>
+        <span class="contact__title-en">CONTACT ME</span>
+      </h2>
+      <div class="contact__divider"></div>
+      <p class="contact__text">
+        <span class="contact__text-th">หากสนใจงานหรือต้องการติดต่อ สามารถเข้าถึงผมได้ผ่านช่องทางด้านล่างครับ</span>
+        <span class="contact__text-en">Feel free to reach out through any of the channels below.</span>
+      </p>
+
+      <div class="contact__cards">
+        <!-- Phone -->
+        <a href="tel:081-508-2272" class="contact-card">
+          <div class="contact-card__icon" id="contactPhoneIcon"></div>
+          <span class="contact-card__label">โทรศัพท์ <span class="contact-card__label-en">/ Phone</span></span>
+          <span class="contact-card__value">081-508-2272</span>
+        </a>
+
+        <!-- Email -->
+        <a href="mailto:kanokpol.smm@gmail.com" class="contact-card">
+          <div class="contact-card__icon" id="contactMailIcon"></div>
+          <span class="contact-card__label">อีเมล <span class="contact-card__label-en">/ Email</span></span>
+          <span class="contact-card__value">kanokpol.smm@gmail.com</span>
+        </a>
+
+        <!-- GitHub -->
+        <a href="https://github.com/knpsabs" target="_blank" rel="noopener" class="contact-card">
+          <div class="contact-card__icon" id="contactGithubIcon"></div>
+          <span class="contact-card__label">GitHub</span>
+          <span class="contact-card__value">knpsabs</span>
+        </a>
+
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/knnsmmk/" target="_blank" rel="noopener" class="contact-card">
+          <div class="contact-card__icon" id="contactInstagramIcon"></div>
+          <span class="contact-card__label">Instagram</span>
+          <span class="contact-card__value">@knnsmmk</span>
+        </a>
+
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/knnsmmk/" target="_blank" rel="noopener" class="contact-card">
+          <div class="contact-card__icon" id="contactFacebookIcon"></div>
+          <span class="contact-card__label">Facebook</span>
+          <span class="contact-card__value">knnsmmk</span>
+        </a>
+
+        <!-- Discord -->
+        <div class="contact-card contact-card--nolink">
+          <div class="contact-card__icon" id="contactDiscordIcon"></div>
+          <span class="contact-card__label">Discord</span>
+          <span class="contact-card__value">mmok1 <span class="contact-card__sub">ID: 683212734774771712</span></span>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <p>© 2025 กนกพล แสนเมืองมา</p>
+      </footer>
+    </div>
+  </section>
+
+  <!-- ============ LIGHTBOX (Image viewer) ============ -->
+  <div id="lightbox" class="lightbox" hidden>
+    <button class="lightbox__close" id="lightboxClose" aria-label="ปิด">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" /></svg>
+    </button>
+    <div class="lightbox__counter" id="lightboxCounter"></div>
+    <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" aria-label="ก่อนหน้า">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" /></svg>
+    </button>
+    <div class="lightbox__image-wrap" id="lightboxImageWrap"></div>
+    <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="ถัดไป">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" /></svg>
+    </button>
+  </div>
+
+  <!-- ============ GSAP for scroll animation ============ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- ============ App ============ -->
+  <script src="data.js"></script>
+  <script src="icons.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
