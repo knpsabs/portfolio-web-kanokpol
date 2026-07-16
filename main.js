@@ -198,7 +198,9 @@
         // Native video uses the full mobile display in fullscreen and requests
         // the original Drive file, instead of the 360p Drive preview default.
         const video = el("video", {
-          src: `https://drive.google.com/uc?export=download&id=${v.id}`,
+          // confirm=t also works for large Drive files, which otherwise return
+          // a virus-scan warning page instead of the video stream.
+          src: `https://drive.usercontent.google.com/download?id=${v.id}&export=download&confirm=t`,
           controls: "",
           playsinline: "",
           preload: "metadata",
