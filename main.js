@@ -192,27 +192,26 @@
         frameWrap.innerHTML = "";
         const loader = el("div", { class: "video-card__loader" }, [
           el("div", { class: "video-card__spinner" }),
+          el("span", { class: "video-card__loader-text" }, ["กำลังโหลดวิดีโอคุณภาพสูง..."]),
         ]);
         frameWrap.appendChild(loader);
 
-        // Native video uses the full mobile display in fullscreen and requests
-        // the original Drive file, instead of the 360p Drive preview default.
+        // Load Drive's original MP4 as a blob before assigning it to video.
+        // This avoids iOS falling back to Drive's embedded 360p player when
+        // Drive sends an attachment header for large files.
+        const streamUrl = `https://drive.usercontent.google.com/download?id=${v.id}&export=download&confirm=t`;
         const video = el("video", {
-          // confirm=t also works for large Drive files, which otherwise return
-          // a virus-scan warning page instead of the video stream.
-          src: `https://drive.usercontent.google.com/download?id=${v.id}&export=download&confirm=t`,
           controls: "",
           playsinline: "",
           preload: "metadata",
           poster: thumb,
+          crossorigin: "anonymous",
           style: "opacity:0;transition:opacity 0.5s ease;",
         });
-        video.addEventListener("loadeddata", () => {
-          loader.remove();
-          video.style.opacity = "1";
-        }, { once: true });
-        video.addEventListener("error", () => {
-          // Retain an embedded-player fallback for restricted Drive files.
+        let fellBack = false;
+        const useFallback = () => {
+          if (fellBack) return;
+          fellBack = true;
           video.remove();
           const iframe = el("iframe", {
             src: `https://drive.google.com/file/d/${v.id}/preview?embedded=true&rm=minimal`,
@@ -221,8 +220,23 @@
           });
           iframe.addEventListener("load", () => loader.remove(), { once: true });
           frameWrap.appendChild(iframe);
+        };
+        video.addEventListener("loadeddata", () => {
+          loader.remove();
+          video.style.opacity = "1";
         }, { once: true });
+        video.addEventListener("error", useFallback, { once: true });
         frameWrap.appendChild(video);
+        fetch(streamUrl)
+          .then((response) => {
+            if (!response.ok) throw new Error("Unable to load video");
+            return response.blob();
+          })
+          .then((blob) => {
+            video.src = URL.createObjectURL(blob);
+            video.load();
+          })
+          .catch(useFallback);
       });
 
       frameWrap.appendChild(previewBtn);

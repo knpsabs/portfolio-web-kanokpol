@@ -947,8 +947,13 @@ body {
 }
 .video-card__loader {
   position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
+  display: flex; flex-direction: column; gap: 12px;
+  align-items: center; justify-content: center;
   background: #0d0d0d;
+}
+.video-card__loader-text {
+  color: var(--color-light-dim);
+  font-size: 0.78rem;
 }
 .video-card__spinner {
   width: 36px; height: 36px;
