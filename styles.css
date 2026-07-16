@@ -760,19 +760,19 @@ body {
 /* Gentle motion gives each chapter a little life without competing with the work. */
 @media (prefers-reduced-motion: no-preference) {
   .work-section__icon {
-    animation: sectionIconFloat 4.5s ease-in-out infinite;
+    animation: sectionIconFloat 2.8s ease-in-out infinite;
   }
   .about-section .work-section__icon { animation-delay: -1.4s; }
   .work-section:nth-of-type(even) .work-section__icon { animation-delay: -2.4s; }
-  .work-section__watermark { animation: watermarkDrift 9s ease-in-out infinite; }
+  .work-section__watermark { animation: watermarkDrift 5.5s ease-in-out infinite; }
 }
 @keyframes sectionIconFloat {
   0%, 100% { transform: translateY(0) rotate(0); }
-  50% { transform: translateY(-7px) rotate(4deg); }
+  50% { transform: translateY(-12px) rotate(7deg); }
 }
 @keyframes watermarkDrift {
   0%, 100% { transform: translate3d(0, 0, 0); opacity: 0.045; }
-  50% { transform: translate3d(-10px, 8px, 0); opacity: 0.075; }
+  50% { transform: translate3d(-18px, 12px, 0); opacity: 0.085; }
 }
 .work-section__subtitle {
   max-width: 720px;
