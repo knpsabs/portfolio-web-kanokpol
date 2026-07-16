@@ -195,23 +195,32 @@
         ]);
         frameWrap.appendChild(loader);
 
-        // สร้าง iframe (ซ่อนไว้ก่อน)
-        const iframe = el("iframe", {
-          src: `https://drive.google.com/file/d/${v.id}/preview?embedded=true&rm=minimal`,
-          allow: "autoplay; fullscreen",
-          allowfullscreen: "",
-          style: "opacity:0;transition:opacity 0.5s ease;pointer-events:none;",
-          loading: "lazy",
+        // Native video uses the full mobile display in fullscreen and requests
+        // the original Drive file, instead of the 360p Drive preview default.
+        const video = el("video", {
+          src: `https://drive.google.com/uc?export=download&id=${v.id}`,
+          controls: "",
+          playsinline: "",
+          preload: "metadata",
+          poster: thumb,
+          style: "opacity:0;transition:opacity 0.5s ease;",
         });
-        iframe.addEventListener("load", () => {
-          // รอเพิ่มอีก 300ms ให้ Google Drive render เสร็จก่อนแสดง
-          setTimeout(() => {
-            loader.remove();
-            iframe.style.opacity = "1";
-            iframe.style.pointerEvents = "auto";
-          }, 300);
-        });
-        frameWrap.appendChild(iframe);
+        video.addEventListener("loadeddata", () => {
+          loader.remove();
+          video.style.opacity = "1";
+        }, { once: true });
+        video.addEventListener("error", () => {
+          // Retain an embedded-player fallback for restricted Drive files.
+          video.remove();
+          const iframe = el("iframe", {
+            src: `https://drive.google.com/file/d/${v.id}/preview?embedded=true&rm=minimal`,
+            allow: "autoplay; fullscreen",
+            allowfullscreen: "",
+          });
+          iframe.addEventListener("load", () => loader.remove(), { once: true });
+          frameWrap.appendChild(iframe);
+        }, { once: true });
+        frameWrap.appendChild(video);
       });
 
       frameWrap.appendChild(previewBtn);

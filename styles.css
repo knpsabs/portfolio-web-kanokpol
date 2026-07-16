@@ -876,13 +876,16 @@ body {
   border-radius: 0;
 }
 .video-card__frame-wrap--portrait { padding-top: 177.78%; }
-.video-card__frame-wrap iframe {
+.video-card__frame-wrap iframe,
+.video-card__frame-wrap video {
   position: absolute; top: 0; left: 0;
   width: 100%; height: 100%; border: 0;
   background: var(--color-primary);
 }
-/* Portrait video: ขยาย iframe ให้ใหญ่กว่ากรอบเพื่อ crop ขอบดำของ Google Drive player */
-.video-card__frame-wrap--portrait iframe {
+.video-card__frame-wrap video { object-fit: contain; }
+/* Keep portrait media aligned with its card before opening native fullscreen. */
+.video-card__frame-wrap--portrait iframe,
+.video-card__frame-wrap--portrait video {
   width: 100%; height: 100%;
   top: 0; left: 0;
 }
